@@ -237,13 +237,13 @@ class VT13
    */
   struct Param
   {
-    uint32_t task_stack_depth_uart;  ///< 接收线程栈深
+    uint32_t task_stack_depth_uart = 1536;  ///< 接收线程栈深
     ///< Receive thread stack depth
-    LibXR::Thread::Priority thread_priority_uart;  ///< 接收线程优先级
+    LibXR::Thread::Priority thread_priority_uart = LibXR::Thread::Priority::HIGH;  ///< 接收线程优先级
     ///< Receive thread priority
-    uint32_t baudrate;  ///< Hero UART5 baudrate
-    LibXR::UART::Parity parity;
-    uint8_t stop_bits;
+    uint32_t baudrate = 100000;  ///< Hero UART5 baudrate
+    LibXR::UART::Parity parity = LibXR::UART::Parity::EVEN;
+    uint8_t stop_bits = 2;
   };
 
   /**
@@ -257,12 +257,9 @@ class VT13
    * @param param 构造参数。
    *              Construction parameters.
    */
-  VT13(LibXR::UART& uart, CMD& cmd,
-       const Param& param = Param{.task_stack_depth_uart = 1536,
-                                 .thread_priority_uart = LibXR::Thread::Priority::HIGH,
-                                 .baudrate = 100000,
-                                 .parity = LibXR::UART::Parity::EVEN,
-                                 .stop_bits = 2})
+  VT13(LibXR::UART& uart, CMD& cmd) : VT13(uart, cmd, Param{}) {}
+
+  VT13(LibXR::UART& uart, CMD& cmd, const Param& param)
       : cmd_(&cmd), uart_(std::addressof(uart)), sem_(0), op_(sem_, 64)
   {
     uart_->SetConfig({param.baudrate, param.parity, 8, param.stop_bits});
