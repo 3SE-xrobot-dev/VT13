@@ -2,7 +2,8 @@
 
 3SE fork of [QDU-Robomaster/VT13](https://github.com/QDU-Robomaster/VT13)
 at `7927154b47f5da7bab47e86da098705a8d4e26ae` (Apache-2.0). Upstream
-CLI examples below use the QDU namespace; this copy is currently local.
+CLI examples below retain the QDU namespace; this repository is published at
+https://github.com/3SE-xrobot-dev/VT13.
 
 VT13 链路遥控解析模块：从 UART 接收 21 字节协议帧，向 CMD 输入控制量并发出事件 / VT13 link remote controller Module that receives 21-byte frames over UART, feeds control data to CMD and emits events
 
